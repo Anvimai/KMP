@@ -6,7 +6,7 @@ function callYoutubeApi() {
   let youTubeURL =
     "https://www.googleapis.com/youtube/v3/search?q=" +
     cockTail +
-    "&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyAl9Bp8LbWiQeAUi0_6uRBLLhnBI6le7K4";
+    "&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyDTmkNXeCl5ReVGVKqu4cDbx32_PBlDX0Y";
 
   // Get Response from the Youtube API
   $.ajax({
@@ -14,17 +14,26 @@ function callYoutubeApi() {
     method: "GET"
   }).then(function (response) {
     let youTubeApiResponse = response;
-    let videosAvailable = youTubeApiResponse.pageInfo.totalResults;
-    // console.log(youTubeApiResponse);
+    // let videosAvailable = youTubeApiResponse.pageInfo.totalResults;
+    let videosAvailable = youTubeApiResponse.items.length;
+    //  console.log(youTubeApiResponse);
+    //  console.log(youTubeApiResponse.items[0].snippet.title)
     // console.log(videosAvailable === 0); 
-
-    if (videosAvailable === 0) {
+    
+    //This checks if the video title actually includes the cocktail drink because sometimes videos of other drinks would show up
+    let vidTitleCheck;
+    if(videosAvailable != 0){
+      let videoTitle = youTubeApiResponse.items[0].snippet.title;
+      vidTitleCheck = videoTitle.toLowerCase().includes(cockTail.toLowerCase());
+    }
+    // console.log(vidTitleCheck);
+    if (videosAvailable === 0 || vidTitleCheck == false) {
       // Build iframe html
       let iframe = $("<iframe>")
         .addClass("embed-responsive-item")
         .attr("src", "https://www.youtube.com/embed/CVDAoXEu3D8");
       //Add the iframe to the page.
-      $(".video-message").prepend("<p>Sorry, we couldn't find a good video for that particular cocktail but here's a video that will help you incorporate the ingredients above to make cocktail great.</p>");
+      $(".video-message").prepend("<p>Sorry, we couldn't find a good video for that particular drink but here's an introductory video to better understand cocktail mixing!</p>");
       $(".embed-responsive").append(iframe);
 
     } else {
@@ -117,10 +126,16 @@ function callcocktailDbApi() {
     //Run through the array of ingredients and measurments
     ingredientsLoop: for (let i = 0; i < ingredient.length; i++) {
       //Build list items for ingredients
-      let listItem = $("<li>").text(measurements[i] + ingredient[i]);
+      // let listItem = $("<li>").text(measurements[i] + ingredient[i]);
       //The cocktail DB Api returns 15 ingredient strings but it's rare that a cocktail has that many ingredients. This if statement will terminate the loop after the last ingredient so that we only display the ingredients available
-      if (ingredient[i] != "") {
+      if(measurements[i] == null && ingredient[i] != null){
+        let listItem = $("<li>").text(ingredient[i]);
         $("#ingredientList").append(listItem);
+        // console.log("on run " + i + "first statement runs");
+      }else if (ingredient[i] != null) {
+        let listItem = $("<li>").text(measurements[i] + ingredient[i]);
+        $("#ingredientList").append(listItem);
+        // console.log("on run " + i + "second statement runs");
       } else {
         break ingredientsLoop;
       }
@@ -228,10 +243,15 @@ const renderRandomCocktailHtml = data => {
   ingredientsLoop: for (let i = 0; i < ingredient.length; i++) {
     //   console.log(measurements[i] + ingredient[i]);
     //Build list items for ingredients
-    let listItem = $("<li>").text(measurements[i] + ingredient[i]);
     //The cocktail DB Api returns 15 ingredient strings but it's rare that a cocktail has that many ingredients. This if statement will terminate the loop after the last ingredient so that we only display the ingredients available
-    if (ingredient[i] != "" || measurements[i] != 0) {
+    if(measurements[i] == null && ingredient[i] != null){
+      let listItem = $("<li>").text(ingredient[i]);
       $("#ingredientList").append(listItem);
+      // console.log("on run " + i + "first statement runs");
+    }else if (ingredient[i] != null) {
+      let listItem = $("<li>").text(measurements[i] + ingredient[i]);
+      $("#ingredientList").append(listItem);
+      // console.log("on run " + i + "second statement runs");
     } else {
       break ingredientsLoop;
     }
@@ -247,7 +267,7 @@ const renderRandomCocktailHtml = data => {
 
 //This function handles the youtube api response for random response
 const callRandomYoutubeApi = (cocktail) => {
-  let url = `https://www.googleapis.com/youtube/v3/search?q=${cocktail}&part=snippet&channelId=UCm4_NTvhixXU3YFetu8z-aA&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyAl9Bp8LbWiQeAUi0_6uRBLLhnBI6le7K4`;
+  let url = `https://www.googleapis.com/youtube/v3/search?q=${cocktail}&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyDTmkNXeCl5ReVGVKqu4cDbx32_PBlDX0Y`;
 
   let params = {
     url,
@@ -258,14 +278,21 @@ const callRandomYoutubeApi = (cocktail) => {
 };
 
 //Capture the video ID from api as it will be needed to build the appropriate video URL. 
-const getRandomVideoUrl = response => {
-  if (response.pageInfo.totalResults === 0) {
+const getRandomVideoUrl = (response, cocktailName) => {
+  let vidTitleCheck;
+  if(response.items.length != 0){
+    let videoTitle = response.items[0].snippet.title;
+    vidTitleCheck = videoTitle.toLowerCase().includes(cocktailName.toLowerCase());
+    console.log(response.items[0].snippet.title)
+  }
+  console.log(cocktailName);
+  if (response.items.length === 0 || vidTitleCheck == false) {
+    $(".video-message").prepend("<p>Sorry, we couldn't find a good video for that particular drink but here's an introductory video to better understand cocktail mixing!</p>");
     return "https://www.youtube.com/embed/CVDAoXEu3D8"
   } else {
     return `https://www.youtube.com/embed/${response.items[0].id.videoId}`
   }
 };
-
 
 //Build embed URL from API response
 const renderVideoIframe = videoUrl => {
@@ -284,7 +311,7 @@ $("#add-random-drink-btn").on("click", async event => {
   handleClearRandom();
   const cocktailData = await callRandomCocktail();
   const videoData = await callRandomYoutubeApi(cocktailData.drinks[0].strDrink);
-  const url = getRandomVideoUrl(videoData);
+  const url = getRandomVideoUrl(videoData, cocktailData.drinks[0].strDrink);
   renderVideoIframe(url);
 });
 
