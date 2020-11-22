@@ -7,7 +7,7 @@ function callYoutubeApi() {
   let youTubeURL =
     "https://www.googleapis.com/youtube/v3/search?q=" +
     cockTail +
-    "&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyDTmkNXeCl5ReVGVKqu4cDbx32_PBlDX0Y";
+    "&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyBtFrqTZn5VaCcSTbxDlmbE0Y4__nZwqMU";
 
   // Get Response from the Youtube API
   $.ajax({
@@ -272,7 +272,7 @@ const renderRandomCocktailHtml = data => {
 
 //This function handles the youtube api response for random response
 const callRandomYoutubeApi = (cocktail) => {
-  let url = `https://www.googleapis.com/youtube/v3/search?q=${cocktail}&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyDTmkNXeCl5ReVGVKqu4cDbx32_PBlDX0Y`;
+  let url = `https://www.googleapis.com/youtube/v3/search?q=${cocktail}&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyBtFrqTZn5VaCcSTbxDlmbE0Y4__nZwqMU`;
 
   let params = {
     url,
