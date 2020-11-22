@@ -1,4 +1,5 @@
 //This function handles the youtube api response
+
 function callYoutubeApi() {
   let cockTail = $("#drink-name-input")
     .val()
@@ -149,9 +150,10 @@ function callcocktailDbApi() {
   });
 }
 
-//When the form is submitted, call both api functions and place things on the page as necessary.
-$("#add-drink-choices-btn").on("click", function (event) {
-  event.preventDefault();
+
+
+const loadDrink = function (event) {
+  if(event){event.preventDefault();}
   $(".container").show();
   $(".cards").show();
 
@@ -167,7 +169,10 @@ $("#add-drink-choices-btn").on("click", function (event) {
   $(".inst").empty();
   //clear the message on each click
   $(".video-message").empty();
-});
+}
+
+//When the form is submitted, call both api functions and place things on the page as necessary.
+$("#add-drink-choices-btn").on("click", loadDrink);
 
 //This function handles the random cocktail function to parse the db api
 const onRandomCocktailSuccess = data => {
