@@ -5,26 +5,48 @@
     import { Infos } from "../api/user-info.js";
     import Info from "./Info.svelte";
     import { onMount } from "svelte";
+    const cocktailDB = require("../../public/searchHelper.js");
+
+
     let newFav = "";
     let currentUser;
-
     onMount(async () => {
         Meteor.subscribe("info");
     });
-
     $: info = useTracker(() =>
         Infos.find({}, { sort: { createdAt: -1 } }).fetch()
     );
-
     $: currentUser = useTracker(() => Meteor.user());
-
     function handleSubmit(event) {
         Meteor.call("info.insert", newFav);
-
         // Clear form
-
         newFav = "";
     }
+
+    let pageType = "init";
+    let response;
+
+    /*window.onload = () => {
+        document.getElementById('add-ingredient-choices-btn').addEventListener('click', (event) => {
+            let searchString = document.getElementById('drink-name-input').value.trim();
+            response = cocktailDB.fetchResultsByIngredient(searchString);
+            pageType = 'results';
+        });
+    }*/
+
+    const ingredientSearchClick = function(event){
+        let searchString = document.getElementById('drink-name-input').value.trim();
+        response = cocktailDB.fetchResultsByIngredient(searchString);
+        pageType = 'results';
+    }
+
+    const resultClick = function(event){
+        let drinkName = event.target.innerText;
+        document.getElementById('drink-name-input').value = drinkName;
+        pageType = "drink";
+        loadDrink();
+    }
+
 </script>
 
 <head>
@@ -72,6 +94,11 @@
                     <button
                         class="btn btn-secondary btn-lg"
                         id="add-drink-choices-btn">Let's Git Lit</button>
+                    <button
+                        class="btn btn-secondary btn-lg"
+                        id="add-ingredient-choices-btn"
+                        on:click={e => ingredientSearchClick(e)}>Search by Ingredient
+                        </button>
                     <button
                         class="btn btn-secondary btn-lg"
                         id="add-random-drink-btn"
@@ -142,55 +169,69 @@
                 </div>
             </div>
         </section>
-        <!-- Middle Section -->
-        <section class="middle">
-            <div class="container">
-                <div class="row" style="min-height: 70vh">
-                    <div class="col col-lg-6">
-                        {#if $currentUser}
-                            <form
-                                class="new-task"
-                                on:submit|preventDefault={handleSubmit}>
-                                <input
-                                    type="text"
-                                    placeholder="Type Drink Name To Add"
-                                    bind:value={newFav} />
-                            </form>
-                        {/if}
+        {#if (pageType != "results")} <!--fix this part to scale****************-->
+            <!-- Middle Section -->
+            <section class="middle">
+                <div class="container">
+                    <div class="row" style="min-height: 70vh">
+                        <div class="col col-lg-6">
+                            {#if $currentUser}
+                                <form
+                                    class="new-task"
+                                    on:submit|preventDefault={handleSubmit}>
+                                    <input
+                                        type="text"
+                                        placeholder="Type Drink Name To Add"
+                                        bind:value={newFav} />
+                                </form>
+                            {/if}
 
-                        <!-- <i class="far fa-star fa-2x"></i> -->
-                        <div class="drink-image"><img class="img-fluid" /></div>
-                    </div>
-                    <div class="col col-lg-6 cards">
-                        <div class="row">
-                            <div class="card-body">
-                                <h2>Recipe Instructions</h2>
-
-                                <div class="inst" />
-                            </div>
+                            <!-- <i class="far fa-star fa-2x"></i> -->
+                            <div class="drink-image"><img class="img-fluid" /></div>
                         </div>
-                        <div class="row">
-                            <div class="card-body">
-                                <h2>Ingredients</h2>
-                                <ul id="ingredientList" />
+                        <div class="col col-lg-6 cards">
+                            <div class="row">
+                                <div class="card-body">
+                                    <h2>Recipe Instructions</h2>
+
+                                    <div class="inst" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="card-body">
+                                    <h2>Ingredients</h2>
+                                    <ul id="ingredientList" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Bottom Section -->
-        <section class="bottom">
-            <div class="container">
-                <div class="card mb-4 p-4">
-                    <div class="card-body">
-                        <div class="video-message" />
-                        <div class="embed-responsive embed-responsive-16by9" />
+            <!-- Bottom Section -->
+            <section class="bottom">
+                <div class="container">
+                    <div class="card mb-4 p-4">
+                        <div class="card-body">
+                            <div class="video-message" />
+                            <div class="embed-responsive embed-responsive-16by9" />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        {:else}
+            {#await response then drinks}
+                {#if drinks}
+                    <ul>
+                        {#each drinks as drink}
+                            <li on:click="{e => resultClick(e)}">{drink.strDrink}</li>
+                        {/each}
+                    </ul>
+                {:else}
+                    <p>We're sorry, but nothing in our database contains that ingredient. Try again?</p>
+                {/if}
+            {/await}
+        {/if}
     </main>
     <footer class="footer bg-dark">
     
@@ -211,10 +252,11 @@
         crossorigin="anonymous">
     </script>
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/bloodhound.min.js">
+        src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.1/bloodhound.min.js"
+        type="text/javascript">
     </script>
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.jquery.min.js">
+        src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.3.1/typeahead.jquery.min.js">
     </script>
     <script src="api.js">
     </script>
