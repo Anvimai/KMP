@@ -62,7 +62,7 @@
         crossorigin="anonymous" />
     <!-- Custom styles for this template -->
     <link ref="/main.css" rel="stylesheet" />
-    <link href="/favicon.png" rel="shortcut icon" type="image/png"/>
+    <link href="/favicon.png" rel="shortcut icon" type="image/png" sizes="32x32"/>
     <title>Quarantinis</title>
 </head>
 
@@ -131,8 +131,7 @@
                         <h1 class="text-center">quarantinis</h1>
 
                         <h2 class="text-center">
-                            All you need to know about the cocktail(s) you’re
-                            craving!
+                            Your stay-at-home bartending guide!
                         </h2>
                     </div>
                     {#if $currentUser}
