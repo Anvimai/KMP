@@ -62,7 +62,7 @@
         crossorigin="anonymous" />
     <!-- Custom styles for this template -->
     <link ref="/main.css" rel="stylesheet" />
-    <link href="/favicon.png" rel="icon" type="image/png"/>
+    <link href="/favicon.png" rel="shortcut icon" type="image/png"/>
     <title>Quarantinis</title>
 </head>
 
