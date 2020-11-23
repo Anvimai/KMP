@@ -216,7 +216,7 @@
                 {#if drinks}
                     <ul>
                         {#each drinks as drink}
-                            <li on:click="{e => resultClick(e)}">{drink.strDrink}</li>
+                            <li class="resultItem" on:click="{e => resultClick(e)}">{drink.strDrink}</li>
                         {/each}
                     </ul>
                 {:else}
