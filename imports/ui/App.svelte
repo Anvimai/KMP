@@ -62,6 +62,7 @@
         crossorigin="anonymous" />
     <!-- Custom styles for this template -->
     <link ref="/main.css" rel="stylesheet" />
+    <link href="/favicon.png" rel="icon" type="image/png"/>
     <title>Quarantinis</title>
 </head>
 
@@ -72,9 +73,10 @@
         <div id="desktop-navbar">
             <nav class="navbar navbar-dark bg-dark">
                 <img
-                    src="cocktaillogo3.jpg"
+                    src="newLogo.svg"
                     alt="Git-Lit cocktail Logo"
-                    class="logo" />
+                    class="logo"
+                    style="height: 100%;" />
 
                 <div>
                     <input
