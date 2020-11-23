@@ -26,14 +26,6 @@
     let pageType = "init";
     let response;
 
-    /*window.onload = () => {
-        document.getElementById('add-ingredient-choices-btn').addEventListener('click', (event) => {
-            let searchString = document.getElementById('drink-name-input').value.trim();
-            response = cocktailDB.fetchResultsByIngredient(searchString);
-            pageType = 'results';
-        });
-    }*/
-
     const ingredientSearchClick = function(event){
         let searchString = document.getElementById('drink-name-input').value.trim();
         response = cocktailDB.fetchResultsByIngredient(searchString);
@@ -61,9 +53,8 @@
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous" />
-    <link
-        href="https://fonts.googleapis.com/css?family=Fjalla+One"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet"> 
     <link
         rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
@@ -71,7 +62,7 @@
         crossorigin="anonymous" />
     <!-- Custom styles for this template -->
     <link ref="/main.css" rel="stylesheet" />
-    <title>Git-Lit</title>
+    <title>Quarantinis</title>
 </head>
 
 <body>
@@ -89,11 +80,11 @@
                     <input
                         class="form-control typeahead"
                         id="drink-name-input"
-                        placeholder="Input Drink Name"
+                        placeholder="What are you drinking?"
                         type="text" />
                     <button
                         class="btn btn-secondary btn-lg"
-                        id="add-drink-choices-btn">Let's Git Lit</button>
+                        id="add-drink-choices-btn">Search by Cocktail</button>
                     <button
                         class="btn btn-secondary btn-lg"
                         id="add-ingredient-choices-btn"
@@ -104,8 +95,8 @@
                         id="add-random-drink-btn"
                         data-toggle="tooltip"
                         data-placement="bottom"
-                        title="Not sure? We'll recommend something good!!">Git
-                        Randomly Lit</button>
+                        title="Not sure? We'll recommend something good!!">Random Cocktail
+                        </button>
                 </div>
 
                 <button
@@ -134,8 +125,8 @@
                 <div class="container-fluid" id="jumbo-container">
                     <div
                         class="jumbotron"
-                        style="background-color: rgb(255, 255, 255, 0.6);">
-                        <h1 class="text-center">Git-Lit</h1>
+                        style="background-color: rgb(255, 255, 255, 0.0); color: white;">
+                        <h1 class="text-center">quarantinis</h1>
 
                         <h2 class="text-center">
                             All you need to know about the cocktail(s) you’re
@@ -143,12 +134,12 @@
                         </h2>
                     </div>
                     {#if $currentUser}
-                        <label for="drink-name-input" style="color:black"><h5>
-                                Your Favorite Cocktails
+                        <label for="drink-name-input" style="color:white"><h5>
+                                Your Favorite Cocktails:
                             </h5></label>
                     {/if}
                     {#if !$currentUser}
-                        <label for="drink-name-input" style="color:black"><h5>
+                        <label for="drink-name-input" style="color:white"><h5>
                                 Sign in or create an account to save cocktails
                                 to your favorites.
                             </h5></label>

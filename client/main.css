@@ -1,5 +1,5 @@
 *{
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 15px; 
 }
 
@@ -32,7 +32,7 @@ h1.text-center{
 }
 
 h5{
-  background-color: rgb(255, 255, 255, 0.6);
+  color: white;
   padding: 8px;
   /* border-color: rgb(255, 255, 255, 0.9); */
   border-radius: 5px;
@@ -49,7 +49,7 @@ h5{
 }
 
 #jumbo-container {
-  background-image: url("bgimg2.jpg");
+  background-image: url("https://images.freeimages.com/images/large-previews/824/cocktail-1569754.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
@@ -57,7 +57,7 @@ h5{
   background-size: 100%;
   margin: 0px;
   margin-bottom: 30px;
-  margin-top: 77px !important;
+  margin-top: 65px !important;
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
@@ -155,7 +155,7 @@ img{
       display: none;
   }
   main{
-      background-image: url("bgimg2.jpg");
+      background-image: url("https://images.freeimages.com/images/large-previews/824/cocktail-1569754.jpg");
   }
   #jumbo-container{
       margin-top: 0!important;
@@ -188,7 +188,7 @@ img{
       display: none;
   }
   main{
-      background-image: url("bgimg2.jpg");
+      background-image: url("https://images.freeimages.com/images/large-previews/824/cocktail-1569754.jpg");
   }
   #jumbo-container{
       margin-top: 0!important;
@@ -210,12 +210,8 @@ img{
   float: left;
 }
 
-.fa-star {
-  float: right;
-}
-
 i:hover {
-  color: rgb(57, 255, 20);
+  color: red;
 }
 
 #login-buttons {

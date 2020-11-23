@@ -28,16 +28,7 @@
     }
 </script>
 
-<li class:private={task.private} style="list-style-type: none;">
+<li class:private={task.private} style="list-style-type: none; color: white; font-weight: normal;">
     {task.text}
-
-    {#if showPrivateButton}
-        <button className="toggle-private" on:click={togglePrivate}>
-            {task.private ? '🔒' : '🔓'}
-        </button>
-    {/if}
-
-    <button class="delete" on:click={deleteThisTask}>
-        🗑️
-    </button>
+    <i class="fas fa-trash" on:click={deleteThisTask}></i>
 </li>

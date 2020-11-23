@@ -17,8 +17,10 @@
   "homepage": "https://github.com/Anvimai/Cards-Against-Humanity#readme",
   "dependencies": {
     "@babel/runtime": "^7.12.5",
+    "axios": "^0.21.0",
     "browser-sync": "^2.26.13",
     "jquery": "^3.5.1",
+    "meteor-node-stubs": "^1.0.1",
     "svelte": "^3.29.7"
   },
   "description": ""

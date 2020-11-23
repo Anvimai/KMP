@@ -7,7 +7,7 @@ function callYoutubeApi() {
   let youTubeURL =
     "https://www.googleapis.com/youtube/v3/search?q=" +
     cockTail +
-    "&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyBtFrqTZn5VaCcSTbxDlmbE0Y4__nZwqMU";
+    "&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyDTmkNXeCl5ReVGVKqu4cDbx32_PBlDX0Y";
 
   // Get Response from the Youtube API
   $.ajax({
@@ -78,15 +78,10 @@ function callcocktailDbApi() {
       .attr("id", "drinkName")
       .text(cocktailDbApiResponse.drinks[0].strDrink);
 
-    let favStar = $("<i>")
-      .addClass("far fa-star fa-2x")
-      .attr("data-drinkName", cocktailDbApiResponse.drinks[0].strDrink)
-      .attr("data-fav", "no");
 
     //Add the cocktail image and name to the page
     $(".drink-image")
       .append(drinkName)
-      .append(favStar)
       .append(image);
 
     let ingredient = [
@@ -272,7 +267,7 @@ const renderRandomCocktailHtml = data => {
 
 //This function handles the youtube api response for random response
 const callRandomYoutubeApi = (cocktail) => {
-  let url = `https://www.googleapis.com/youtube/v3/search?q=${cocktail}&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyBtFrqTZn5VaCcSTbxDlmbE0Y4__nZwqMU`;
+  let url = `https://www.googleapis.com/youtube/v3/search?q=${cocktail}&part=snippet&channelId=UCaDY8WjYWy36bnt0RVzSklw&type=video&order=relevance&videoEmbeddable=true&key=AIzaSyDTmkNXeCl5ReVGVKqu4cDbx32_PBlDX0Y`;
 
   let params = {
     url,
