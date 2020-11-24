@@ -47,4 +47,6 @@ The autocomplete feature for this website was created by implementing Twitter's 
 An instance of Bloodhound, Twitter's suggestion engine, was created and cocktail names as well as ingredients were stored locally for it. The UI was then initialized on our input field and the instance of Bloodhound was passed in as the source.
 # Svelte, Heroku
 
-https://medium.com/@leonardykris/how-to-run-a-meteor-js-application-on-heroku-in-10-steps-7aceb12de234
+We chose Svelte to do our dynamic HTML generation. Meteor is configured to run the Svelte compiler on the appropriate files which come out as pure Javascript for the browser. Info.svelte defines a new HTML tag to display items fetched from our database, while App.svelte contains and handles almost all of the UI (save for some JQuery in our CocktailDB API handling script) and is the meeting place of all the different incorporated scripts and packages.
+
+Heroku is our hosting platform. We use the meteor-horse buildpack to make everything executable by node.js and MongoDB Atlas to provide our MongoDB instance.
