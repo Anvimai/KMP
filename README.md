@@ -4,24 +4,24 @@ This application uses the Meteor framework. This framework was chosen for its ea
 
 Meteor adheres to a strict separation of concerns. Files are separated into folders;
 
-client
-    main.js - calls meteor components from imports at start up and injects into the view
-    main.css - styling
-    main.html - view
-server
-    main.js - allows the server side to handle user-info (for publishing)
-imports
-    ui
-        App.svelte - main app components, akin to a controller for dynamic view components.
-        Info.svelte - main user app components, controller for user specific data/interaction.
-    api
-        user-info.js -  creates a collection with MongoDB to store additional user information (i.e. favorites list). Controls insertion and deletion of
+- client
+   - main.js - calls meteor components from imports at start up and injects into the view
+   - main.css - styling
+   - main.html - view
+- server
+   - main.js - allows the server side to handle user-info (for publishing)
+- imports
+   - ui
+       - App.svelte - main app components, akin to a controller for dynamic view components.
+       - Info.svelte - main user app components, controller for user specific data/interaction.
+   - api
+      -  user-info.js -  creates a collection with MongoDB to store additional user information (i.e. favorites list). Controls insertion and deletion of
                         favorites. Applies security to restrict who can view/modify favorites. Calls update on user-info collection.
-    startup
-        accounts-config.js - configures user accounts signup/signin process. Ours requires that a user registers only a username and password.   
-public
-    api.js - backend Twitter/YouTube/CocktailsDB api connection and controller.
-    image.jpg - images for styling
+   - startup
+      -  accounts-config.js - configures user accounts signup/signin process. Ours requires that a user registers only a username and password.   
+- public
+   - api.js - backend Twitter/YouTube/CocktailsDB api connection and controller.
+   - image.jpg - images for styling
 
 
 # CocktailDb Api, YouTube Api, Twitter Api
